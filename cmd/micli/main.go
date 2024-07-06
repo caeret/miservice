@@ -23,6 +23,7 @@ const (
 
 func main() {
 	app := cli.NewApp()
+	app.Usage = "cli for xiao mi devices"
 	app.Flags = []cli.Flag{
 		&cli.StringFlag{
 			Name:    "username",
@@ -126,7 +127,7 @@ var listDevicesCmd = &cli.Command{
 var actionCmd = &cli.Command{
 	Name:      "action",
 	Usage:     "send action to specified device",
-	ArgsUsage: "[did] [iid] [args...]",
+	ArgsUsage: " [did] [iid] [args...]",
 	Action: func(cctx *cli.Context) error {
 		if cctx.Args().Len() < 3 {
 			return cli.ShowSubcommandHelp(cctx)
@@ -178,7 +179,7 @@ var actionCmd = &cli.Command{
 var getSpecCmd = &cli.Command{
 	Name:      "spec",
 	Usage:     "get spec for specified device type",
-	ArgsUsage: "[device type]",
+	ArgsUsage: " [device_type]",
 	Action: func(cctx *cli.Context) error {
 		if cctx.Args().Len() == 0 {
 			return cli.ShowSubcommandHelp(cctx)
