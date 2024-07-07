@@ -3,14 +3,14 @@ module github.com/caeret/miservice/cmd/micli
 go 1.21.8
 
 require (
-	github.com/caeret/miservice v0.0.0-20240706113354-6bd954625573
+	github.com/caeret/miservice v0.0.0-20240707151439-51fb2ccd4544
 	github.com/urfave/cli/v2 v2.27.3-0.20240629214313-84c536d83870
 )
 
 require (
 	github.com/cpuguy83/go-md2man/v2 v2.0.4 // indirect
 	github.com/json-iterator/go v1.1.12 // indirect
-	github.com/modern-go/concurrent v0.0.0-20180228061459-e0a39a4cb421 // indirect
+	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect
 	github.com/modern-go/reflect2 v1.0.2 // indirect
 	github.com/russross/blackfriday/v2 v2.1.0 // indirect
 	github.com/spf13/cast v1.6.0 // indirect
