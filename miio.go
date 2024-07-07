@@ -36,7 +36,7 @@ func (m *MiIO) SendAction(ctx context.Context, did string, iid Tuple2[int, int],
 		return
 	}
 	if jsoniter.Get(ret, "code").ToString() != "0" {
-		err = fmt.Errorf("action failed: %s", string(ret))
+		err = fmt.Errorf("invalid code for action: %s", string(ret))
 		return
 	}
 	return
@@ -126,7 +126,7 @@ func (m *MiIO) miioRequest(ctx context.Context, path string, data map[string]any
 	}
 	j := jsoniter.Get(ret, "result")
 	if j.ValueType() == jsoniter.InvalidValue {
-		err = fmt.Errorf("result not found => %s: %s", path, string(ret))
+		err = fmt.Errorf("result not found for path %s: %s", path, string(ret))
 		return
 	}
 	ret = []byte(j.ToString())

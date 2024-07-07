@@ -74,7 +74,7 @@ func (a *Account) Login(ctx context.Context, sid string) (err error) {
 		}
 		j = jsoniter.Get(ret)
 		if j.Get("code").ToString() != "0" {
-			err = fmt.Errorf("login failed: %s", string(ret))
+			err = fmt.Errorf("invalid code for serviceLoginAuth2: %s", string(ret))
 			return
 		}
 	}
@@ -262,6 +262,6 @@ func (a *Account) Request(ctx context.Context, sid, URI string, data Data, heade
 		return a.Request(ctx, sid, URI, data, headers, false)
 	}
 
-	err = fmt.Errorf("request failed: %s", string(ret))
+	err = fmt.Errorf("fail to make account request: %s", string(ret))
 	return
 }
