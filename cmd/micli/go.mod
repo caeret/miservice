@@ -3,8 +3,8 @@ module github.com/caeret/miservice/cmd/micli
 go 1.21.8
 
 require (
-	github.com/caeret/miservice v0.0.0-20240707151439-51fb2ccd4544
-	github.com/urfave/cli/v2 v2.27.3-0.20240629214313-84c536d83870
+	github.com/caeret/miservice v0.0.0-20240709044738-09049826ff4d
+	github.com/urfave/cli/v2 v2.27.3-0.20240708143028-a4832fd31def
 )
 
 require (
