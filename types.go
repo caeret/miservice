@@ -25,3 +25,11 @@ type Tuple3[A, B, C any] struct {
 	B B
 	C C
 }
+
+type Spec struct {
+	Status  string `json:"status"`
+	Model   string `json:"model"`
+	Version int64  `json:"version"`
+	Type    string `json:"type"`
+	Ts      int64  `json:"ts"`
+}

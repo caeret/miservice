@@ -11,7 +11,7 @@ import (
 	"strings"
 )
 
-func GetSpecTypes(ctx context.Context) (types map[string]string, err error) {
+func GetSpecTypes(ctx context.Context) (types []Spec, err error) {
 	specPath := filepath.Join(os.TempDir(), "miservice_miot_specs.json")
 	var b []byte
 	b, err = os.ReadFile(specPath)
@@ -20,7 +20,7 @@ func GetSpecTypes(ctx context.Context) (types map[string]string, err error) {
 			return
 		}
 		var req *http.Request
-		req, err = http.NewRequestWithContext(ctx, http.MethodGet, "http://miot-spec.org/miot-spec-v2/instances?status=all", nil)
+		req, err = http.NewRequestWithContext(ctx, http.MethodGet, "https://miot-spec.org/miot-spec-v2/instances?status=all", nil)
 		if err != nil {
 			return
 		}
@@ -40,18 +40,38 @@ func GetSpecTypes(ctx context.Context) (types map[string]string, err error) {
 		}
 	}
 
-	err = json.Unmarshal(b, &types)
+	var res struct {
+		Instances json.RawMessage `json:"instances"`
+	}
+
+	err = json.Unmarshal(b, &res)
+	if err != nil {
+		err = fmt.Errorf("invalid json in specs cache file %s: %w", specPath, err)
+		return
+	}
+
+	err = json.Unmarshal(res.Instances, &types)
+	if err != nil {
+		err = fmt.Errorf("invalid json in specs cache file %s: %w", specPath, err)
+		return
+	}
 
 	return
 }
 
 func GetSpec(ctx context.Context, typ string) (b []byte, err error) {
 	if !strings.HasPrefix(typ, "urn") {
-		var types map[string]string
-		types, err = GetSpecTypes(ctx)
+		var specs []Spec
+		specs, err = GetSpecTypes(ctx)
 		if err != nil {
 			return
 		}
+
+		types := make(map[string]string)
+		for _, spec := range specs {
+			types[spec.Model] = spec.Type
+		}
+
 		v, ok := types[typ]
 		if !ok {
 			for k := range types {
