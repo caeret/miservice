@@ -161,7 +161,7 @@ var actionCmd = &cli.Command{
 
 		var args []any
 		for _, v := range cctx.Args().Slice()[2:] {
-			args = append(args, v)
+			args = append(args, strToValue(v))
 		}
 
 		miio := miservice.NewMiIO(account, cctx.String("region"))
